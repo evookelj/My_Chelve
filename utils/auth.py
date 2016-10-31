@@ -8,8 +8,6 @@ f = "data/chelve.db"
 db = connect(f)
 c = db.cursor()
 
-salt = ''.join([choice('abcdefghijklmnopqrstuvwxyz123456789') for _ in range(10)])
-
 def login(user, password):
     count = 0
     query = ("SELECT * FROM users WHERE user=?")
@@ -34,6 +32,7 @@ def register(user, password):
 
 def regMain(user, password):
     if regReqs(user, password):
+        salt = ''.join([choice('abcdefghijklmnopqrstuvwxyz123456789') for _ in range(10)])
         query = ("INSERT INTO users VALUES (?, ?, ?)");
         password = sha1(password + salt).hexdigest()
         c.execute(query, (user,salt,password));
@@ -66,6 +65,6 @@ def duplicate(user):
     return False
 
 register("martians","csTeachers")
-login("martians","sesameStreet")
+login("martians","csTeachers")
 db.commit()
 db.close()
