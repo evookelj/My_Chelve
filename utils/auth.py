@@ -7,21 +7,40 @@ f = "data/chelve.db"
 db = sqlite3.connect(f)
 c = db.cursor()
 
-def reg(user, password):
+def regWrap(user, password):
     try: #does table already exist?
         query = ("SELECT * FROM users")
-        regOther(user, password);
     except: #if not, first user!
         query = ("CREATE TABLE users (user TEXT, password TEXT, salt TEXT)")
         c.execute(query)
-        regFirst(user, password);
+    register(user, password)
 
-def regFirst(user, password):
-    print "todo"
+def register(user, password):
+    if regReqs(user, password):
+        query = ("INSERT INTO users VALUES (?, ?, ?)");
+        c.execute(query, (user,password,"hi"));
+        print "Account created!"
 
-def regOther(user, password):
-    
+def regReqs(user, password):
+    success = True
+    if len(password) < 8 or len(password) > 32:
+        print "Password must be 8-32 characters"
+        success = False
+    if len(user) < 8 or len(user) > 32:
+        print "Username must be 8-32 characters"
+        success = False
+    if duplicate(user):
+        print "Username already exists"
+        success = False
+    return success
 
-register("emma","hi")
+def duplicate(user):
+    query = ("SELECT * FROM users where user=?")
+    sel = c.execute(query, (user,))
+    for record in sel:
+        return True
+    return False
+
+register("emaVookelj","hello-there")
 db.commit()
 db.close()
