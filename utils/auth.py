@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
 from hashlib import sha1
-import sqlite3
+from sqlite3 import connect
+from random import choice
 
 f = "data/chelve.db"
-db = sqlite3.connect(f)
+db = connect(f)
 c = db.cursor()
 
-salt = "hi"
+salt = ''.join([choice('abcdefghijklmnopqrstuvwxyz123456789') for _ in range(10)])
 
 def login(user, password):
     count = 0
@@ -15,14 +16,13 @@ def login(user, password):
     sel = c.execute(query,(user,));
     for record in sel:
         count += 1
-        password = sha1(password+salt).hexdigest()
+        password = sha1(password+record[1]).hexdigest()
         if (password==record[2]):
             print "User has been logged in"
         else:
             print "User login has failed. Invalid password"
     if count==0:
         print "Username does not exist"
-        
 
 def register(user, password):
     try: #does table already exist?
@@ -36,7 +36,7 @@ def regMain(user, password):
     if regReqs(user, password):
         query = ("INSERT INTO users VALUES (?, ?, ?)");
         password = sha1(password + salt).hexdigest()
-        c.execute(query, (user,"hi",password));
+        c.execute(query, (user,salt,password));
         print "Account created!"
 
 def regReqs(user, password):
