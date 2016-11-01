@@ -58,11 +58,17 @@ def regReqs(user, password):
     return success
 
 def duplicate(user):
-    query = ("SELECT * FROM users where user=?")
+    query = ("SELECT * FROM users WHERE user=?")
     sel = c.execute(query, (user,))
     for record in sel:
         return True
     return False
+
+def getProfile(user):
+    query = ("SELECT * FROM entries WHERE user=?")
+    sel = c.execute(query, (user,))
+    userStarted = getStarted(user, sel)
+    userContd = getContd(user, sel)
 
 register("martians","csTeachers")
 login("martians","csTeachers")
