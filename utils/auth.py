@@ -17,10 +17,13 @@ def login(user, password):
         password = sha1(password+record[1]).hexdigest()
         if (password==record[2]):
             print "User has been logged in"
+            return True
         else:
             print "User login has failed. Invalid password"
+            return False
     if count==0:
         print "Username does not exist"
+        return False
 
 def register(user, password):
     try: #does table already exist?
@@ -31,12 +34,15 @@ def register(user, password):
     regMain(user, password)
 
 def regMain(user, password):
-    if regReqs(user, password):
+    reg = regReqs(user, password)
+    if reg:
         salt = ''.join([choice('abcdefghijklmnopqrstuvwxyz123456789') for _ in range(10)])
         query = ("INSERT INTO users VALUES (?, ?, ?)");
         password = sha1(password + salt).hexdigest()
         c.execute(query, (user,salt,password));
         print "Account created!"
+    return reg
+        
 
 def regReqs(user, password):
     success = True
@@ -67,6 +73,7 @@ def duplicate(user):
 def getProfile(user):
     userStarted = getStarted(user)
     userContd = getContd(user)
+    return [userStarted, userContd]
 
 def userStarted(user):
     query = ("SELECT * FROM entries WHERE user=? and number=0")

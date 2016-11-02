@@ -1,0 +1,7 @@
+auth.py:
+	login(user,password) -> bool of success/failure + explanatory prints
+	register(user,password) -> bool of success/failure + explanatory prints
+	getProfile(user) -> returns 2-item arr, arr[0]=stories started, arr[0]=stories contributed
+
+stories.py:
+
