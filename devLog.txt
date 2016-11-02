@@ -1,0 +1,10 @@
+MONDAY 10/31
+Login and Regiser in auth.py
+
+TUESDAY 11/01
+Profile getting methods in auth.py (to be moved to stories.py)
+
+WEDNESDAY 11/02
+Cleaning up of auth.py
+getStory(implemented) in stories.py
+Login.html version01 almost complete
