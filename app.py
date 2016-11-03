@@ -16,13 +16,33 @@ app.secret_key = os.urandom(24)
 
 @app.route("/")
 def homePage():
+    if not "Username" in session:
+        return redirect(url_for('login'))
+    return render_template('homepage.html', username = session["Username"])
+##needs implementation of feed
 
 @app.route("/login")
 def login():
+    if "Username" in session:
+        returnd redirect(url_for('homepage'))
+    return render_template('login.html')
+
 
 @app.route("/authenticate")
 def auth():
-
+    pw = request.form["pass"]
+    un = request.form["user"]
+    
+    if request.form["name"] == "register":
+        return render_template('login.html', result = auth.register(un, pw))
+        
+    if request.form["name"] == "login":
+        text = auth.login()
+        if text == "":
+            return redirect(url_for('homepage'))
+        return render_template('login.html', result = text)
+    
+        
 @app.route("/story/<title>")
 def getStory(title):
 
