@@ -16,14 +16,11 @@ def login(user, password):
         count += 1
         password = sha1(password+record[1]).hexdigest()
         if (password==record[2]):
-            print "User has been logged in" #debugging purposes, to be removed in final
-            return True
+            return ""
         else:
-            print "User login has failed. Invalid password" #debugging purposes, to be removed in final
-            return False
+            return "User login has failed. Invalid password" #debugging purposes, to be removed in final
     if count==0:
-        print "Username does not exist" #debugging purposes, to be removed in final
-        return False
+        return "Username does not exist" #debugging purposes, to be removed in final
 
 def register(user, password):
     try: #does table already exist?
@@ -34,36 +31,30 @@ def register(user, password):
         #why not:
         #c.execute("CREATE TABLE users (user TEXT, salt TEXT, password TEXT)")
         c.execute(query)
-    regMain(user, password)
+    return regMain(user, password)
 
 def regMain(user, password):
     reg = regReqs(user, password)
-    if reg:
+    if reg == "":
         salt = os.urandom(10)
         query = ("INSERT INTO users VALUES (?, ?, ?)")
         password = sha1(password + salt).hexdigest()
         c.execute(query, (user, salt, password))
-        print "Account created!"
+        return "Account created!"
     return reg
         
 def regReqs(user, password):
-    success = True
     if len(password) < 8 or len(password) > 32:
-        print "Password must be 8-32 characters"#this is something we want the user to be able to see
-        success = False
+        return "Password must be 8-32 characters"#this is something we want the user to be able to see
     if len(user) < 8 or len(user) > 32:
-        print "Username must be 8-32 characters"
-        success = False
+        return "Username must be 8-32 characters"
     if duplicate(user):
-        print "Username already exists"
-        success = False
+        return "Username already exists"
     if " " in user or " " in password:
-        print "Spaces not allowed in user or password"
-        success = False
+        return "Spaces not allowed in user or password"
     if user==password:
-        print "Username and password must be different"
-        success = False
-    return success
+        return "Username and password must be different"
+    return ""
 
 def duplicate(user):
     query = ("SELECT * FROM users WHERE user=?")
