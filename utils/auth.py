@@ -72,26 +72,6 @@ def duplicate(user):
         return True
     return False
 
-def getProfile(user):#move to stories.py
-    userStarted = getStarted(user)
-    userContd = getContd(user)
-    return [userStarted, userContd]
-
-def userStarted(user):
-    query = ("SELECT * FROM entries WHERE user=? and number=0")
-    sel = c.execute(query, (user,))
-    retArr = []
-    for record in sel:
-        retArr = record[0]
-    return retArr
-
-def userContd(user):
-    query = ("SELECT * FROM entries WHERE user=? and number>0")
-    sel = c.execute(query, (user,))
-    retArr = []
-    for record in sel:
-        retArr = record[0]
-    return retArr
 
 register("martians","csTeachers")
 login("martians","csTeachers")
