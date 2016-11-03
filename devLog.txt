@@ -8,3 +8,12 @@ WEDNESDAY 11/02
 Cleaning up of auth.py
 getStory(implemented) in stories.py
 Login.html version01 almost complete
+setup app.py methods
+
+THURSDAY 11/03
+started profile.html
+finished login.html and homepage.html
+updated app.py
+changed return types for auth.py
+finished getStory(), started getFeed() in stories.py
+
