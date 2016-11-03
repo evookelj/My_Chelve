@@ -1,11 +1,17 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title> Home </title> </head>
+  <head> <title> Book Chelve </title> </head>
 
   <body>
     <center>
-      <h1>{{ message }}</h1> 
+      <h1> Welcome to Book Chelve, {{ username }}</h1> 
       <button type="button"><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </button>
+      <h2> To track your amazing writing skills, check your profile! </h2>
+      <button type="button"><a href = "http://127.0.0.1:5000/profile/"> Profile </a> </button>
+      {% block stories %}
+      <h2> Stories you can contribute to: </h2>
+      {{ stories }}
+      {% endblock %}
     </center>
   </body>
     
