@@ -44,11 +44,13 @@ def auth():
         
 @app.route("/story/<title>")
 def getStory(title):
-    
+    story = stories.getStory(title)
+    if story["full"]:
+        return render_template("cstory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
+    return render_template("ncstory.html", story=story["story"], author=story["author"], time=story["timestamp"])
 
 @app.route("/create")
 def createStory():
-    
 
 @app.route("/profile/<user>")
 def getProfile(user):

@@ -12,6 +12,8 @@ def getContributors(title):
 
 # maybe should take username instead of fullStory and determine permission
 # using SEL statements
+# ADD an element to dict saying whether they can see full story or not
+# so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
 def getStory(storyTitle,fullStory):	
 	dict = {story:""}
 	
