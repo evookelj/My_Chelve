@@ -27,7 +27,6 @@ def login():
         returnd redirect(url_for('homepage'))
     return render_template('login.html')
 
-
 @app.route("/authenticate")
 def auth():
     pw = request.form["pass"]
@@ -45,12 +44,19 @@ def auth():
         
 @app.route("/story/<title>")
 def getStory(title):
+    
 
-@app.route("/create/<title>")
-def createStory(title):
+@app.route("/create")
+def createStory():
+    
 
-@app.route("/profile/<username>")
-def getProfile(username):
+@app.route("/profile/<user>")
+def getProfile(user):
+    duple = getProfile(user);
+    return render_template('profile.html',
+                            username = user,
+                            startedStories = duple[0],
+                            addStories = duple[1])
 
 #======================#
 #         RUN          #
