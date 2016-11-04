@@ -1,10 +1,13 @@
 import sqlite3
 
 def getFeed():
+    return
 		
 def getUser():
+    return
 	
 def getContributors(title):
+    return
 
 # will be used to print the entire story or most recent contribution
 # fullstory vs most recent contribution:
