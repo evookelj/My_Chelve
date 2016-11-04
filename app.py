@@ -52,6 +52,9 @@ def getStory(title):
 @app.route("/create")
 def createStory():
 
+@app.route("/created") #intermediary for /create
+def created():
+
 @app.route("/profile/<user>")
 def getProfile(user):
     duple = getProfile(user);
