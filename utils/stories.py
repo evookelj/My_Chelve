@@ -1,26 +1,17 @@
 import sqlite3
 
-
 def getFeed():
-	
-	
 		
 def getUser():
 	
-	
-	
-	
-def getProfile():
-	
-
-	
 def getContributors(title):
-	
-
 
 # will be used to print the entire story or most recent contribution
 # fullstory vs most recent contribution:
 # returns dict with author, timestamp, story
+
+# maybe should take username instead of fullStory and determine permission
+# using SEL statements
 def getStory(storyTitle,fullStory):	
 	dict = {story:""}
 	
@@ -64,6 +55,7 @@ def getContd(user):
 def getProfile(user):
     userStarted = getStarted(user)
     userContd = getContd(user)
+    #array of arrays of strs/titles
     return [userStarted, userContd]
 	
 		

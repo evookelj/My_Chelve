@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import os
 from utils import auth, stories
 
-app = Flask(__name__))
+app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 #======================#
@@ -24,7 +24,7 @@ def homePage():
 @app.route("/login")
 def login():
     if "Username" in session:
-        returnd redirect(url_for('homepage'))
+        return redirect(url_for('homepage'))
     return render_template('login.html')
 
 @app.route("/authenticate")
