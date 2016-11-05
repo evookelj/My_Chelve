@@ -27,7 +27,6 @@ def login():
         return redirect(url_for('homepage'))
     return render_template('login.html')
 
-
 @app.route("/authenticate")
 def auth():
     pw = request.form["pass"]
@@ -45,12 +44,26 @@ def auth():
         
 @app.route("/story/<title>")
 def getStory(title):
+    story = stories.getStory(title)
+    if story["full"]:
+        return render_template("cstory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
+    return render_template("ncstory.html", story=story["story"], author=story["author"], time=story["timestamp"])
 
-@app.route("/create/<title>")
-def createStory(title):
+@app.route("/create")
+def createStory():
+    return ;
 
-@app.route("/profile/<username>")
-def getProfile(username):
+@app.route("/created") #intermediary for /create
+def created():
+    return ;
+
+@app.route("/profile/<user>")
+def getProfile(user):
+    duple = getProfile(user);
+    return render_template('profile.html',
+                            username = user,
+                            startedStories = duple[0],
+                            addStories = duple[1])
 
 #======================#
 #         RUN          #

@@ -1,5 +1,6 @@
 import sqlite3
 
+<<<<<<< HEAD
 # will be used
 def getFeed():
 	db = sqlite3.connect("data/chelve.db")
@@ -18,10 +19,25 @@ def getProfile():
 def getContributors(title):
 	return 0;
 
+=======
+def getFeed():
+    return
+		
+def getUser():
+    return
+	
+def getContributors(title):
+    return
+>>>>>>> 43c90d974263d8c31e5ed436821c81e5321ad365
 
 # will be used to print the entire story or most recent contribution
 # fullstory vs most recent contribution:
 # returns dict with author, timestamp, story
+
+# maybe should take username instead of fullStory and determine permission
+# using SEL statements
+# ADD an element to dict saying whether they can see full story or not
+# so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
 def getStory(storyTitle,fullStory):	
 	dict = {story:""}
 	
@@ -66,6 +82,7 @@ def getContd(user):
 def getProfile(user):
     userStarted = getStarted(user)
     userContd = getContd(user)
+    #array of arrays of strs/titles
     return [userStarted, userContd]
 		
 	

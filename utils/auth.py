@@ -4,36 +4,34 @@ from hashlib import sha1
 from sqlite3 import connect
 from os import urandom
 
-f = "data/chelve.db"
+f = "data/chelve.db"#might have to be moved to individual methods (IDK)
 db = connect(f)
 c = db.cursor()
 
 def login(user, password):
-    count = 0
+    
     query = ("SELECT * FROM users WHERE user=?")
     sel = c.execute(query,(user,));
+    
+    #records with this username
+    #so should be at most one record (in theory)
+     
     for record in sel:
-        count += 1
-        password = sha1(password+record[1]).hexdigest()
+        password = sha1(password+record[1]).hexdigest()##record[1] is the salt
         if (password==record[2]):
-            return ""
+            return ""#no error message because it will be rerouted to mainpage
         else:
-            return "User login has failed. Invalid password" #debugging purposes, to be removed in final
-    if count==0:
-        return "Username does not exist" #debugging purposes, to be removed in final
+            return "User login has failed. Invalid password"#error message
+    return "Username does not exist"#error message
 
 def register(user, password):
     try: #does table already exist?
         c.execute("SELECT * FROM USERS")
-    except: #if not, first user!
-        query = ("CREATE TABLE users (user TEXT, salt TEXT, password TEXT)")
-        #doesn't actually affect functionality or efficiency, but why create a variable (query) that is only gonna be used once?
-        #why not:
-        #c.execute("CREATE TABLE users (user TEXT, salt TEXT, password TEXT)")
-        c.execute(query)
-    return regMain(user, password)
+    except: #if not, this is the first user!
+        c.execute("CREATE TABLE users (user TEXT, salt TEXT, password TEXT)")
+    return regMain(user, password)#register helper
 
-def regMain(user, password):
+def regMain(user, password):#register helper
     reg = regReqs(user, password)
     if reg == "":
         salt = os.urandom(10)
