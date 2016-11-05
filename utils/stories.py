@@ -34,11 +34,9 @@ def getContributors(title):
 # fullstory vs most recent contribution:
 # returns dict with author, timestamp, story
 
-# maybe should take username instead of fullStory and determine permission
-# using SEL statements
 # ADD an element to dict saying whether they can see full story or not
 # so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
-def getStory(storyTitle,fullStory):	
+def getStory(storyTitle,username):	
 	dict = {story:""}
 	
 	db = sqlite3.connect("data/chelve.db")
@@ -61,6 +59,7 @@ def getStory(storyTitle,fullStory):
 			if x["title"] == storyTitle:
 				dict["story"]+= x["entry"]
 				break
+				
 	return dict
 
 def getStarted(user):
