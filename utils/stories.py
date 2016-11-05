@@ -19,7 +19,7 @@ def getProfile():
 def getContributors(title):
 	return 0;
 
-=======
+
 def getFeed():
     return
 		
@@ -28,7 +28,7 @@ def getUser():
 	
 def getContributors(title):
     return
->>>>>>> 43c90d974263d8c31e5ed436821c81e5321ad365
+
 
 # will be used to print the entire story or most recent contribution
 # fullstory vs most recent contribution:
