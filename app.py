@@ -54,9 +54,13 @@ def getStory(title):
 def createStory():
     return render_template("createStory.html")
 
-@app.route("/created/") #intermediary for /create
+@app.route("/created/", methods=['POST']) #intermediary for /create
 def created():
-    return ;
+    title = request.form["title"]
+    entry = request.form["story"]
+    user = session["Username"]
+    stories.contributeTo(title, entry, user)
+    return redirect( url_for('homePage'))
 
 @app.route("/profile/<user>/")
 def getProfile(user):

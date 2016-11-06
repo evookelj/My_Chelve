@@ -88,12 +88,24 @@ def getProfile(user):
     userContd = getContd(user)
     #array of arrays of strs/titles
     return [userStarted, userContd]
+
+def checkEntries():
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
+    try:
+        sel = c.execute("SELECT * FROM entries")
+    except:
+        query = ("CREATE TABLE entries (title TEXT, timestamp INT, number INT, entry TEXT, user TEXT)")
+        c.execute(query)
+    db.commit()
+    db.close()
             
 #should work for starting a story as well as contributing to a story
 #timestamp will be a string in 
 def contributeTo(storyTitle,entry,user):
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    checkEntries()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:%S %Y-%m-%d')
     query = ("SELECT * FROM entries WHERE title=? AND number=(SELECT MAX(number) FROM entries WHERE title=?)")
     data = c.execute(query,(storyTitle,storyTitle))
