@@ -47,7 +47,7 @@ def authenticate():
 def getStory(title):
     story = stories.getStory(title, session["Username"])
     if story["full"]:
-        return render_template("cStory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
+        return render_template("cStory.html", story = story["story"], author = story["author"], time = story["timestamp"], username=session["Username"]);
     return render_template("ncStory.html", story=story["story"], author=story["author"], time=story["timestamp"])
 
 @app.route("/create/")
