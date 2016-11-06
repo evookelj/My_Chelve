@@ -45,10 +45,10 @@ def authenticate():
         
 @app.route("/story/<title>/")
 def getStory(title):
-    story = stories.getStory(title)
+    story = stories.getStory(title, session["Username"])
     if story["full"]:
-        return render_template("cstory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
-    return render_template("ncstory.html", story=story["story"], author=story["author"], time=story["timestamp"])
+        return render_template("cStory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
+    return render_template("ncStory.html", story=story["story"], author=story["author"], time=story["timestamp"])
 
 @app.route("/create/")
 def createStory():

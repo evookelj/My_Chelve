@@ -9,13 +9,13 @@
       <h2> Stories you have contributed to: </h2>
       {% for title in addstories %}
       <ul>
-	 <li> <a href = "http://127.0.0.1:5000/story/" + {{title}}> {{title}} </a></li>
+	 <li> <a href = "http://127.0.0.1:5000/story/{{title}}"> {{ title }} </a></li>
       </ul>
       {% endfor %}
       <h2> Stories you have started: </h2>
       {% for title in startedstories %}
       <ul>
-	 <li> <a href = "http://127.0.0.1:5000/story/" + {{title}}> {{title}} </a></li>
+	 <li> <a href = "http://127.0.0.1:5000/story/{{title}}"> {{title}} </a></li>
       </ul>
       {% endfor %}
     </center>

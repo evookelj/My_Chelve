@@ -40,8 +40,8 @@ def getContributors(storyTitle):
 # so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
 def getStory(storyTitle,username):  
     dict = {"story":""}
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle,))
     data = data.fetchall()
     print ("------")
@@ -60,7 +60,9 @@ def getStory(storyTitle,username):
             dict["story"] += x[3]
     else:
         dict["full"] = False
-        dict["story"] += data[-1][3] 
+        dict["story"] += data[-1][3]
+    db.commit()
+    db.close()
     return dict
     
 def getStarted(user):
