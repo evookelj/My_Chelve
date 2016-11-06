@@ -1,0 +1,9 @@
+{% extends "cStory.html"}
+{% block story %}
+<h1> You have all the power to change this story {{ username }}, what do you do? </h1>
+<h2> {{ title }} </h2>
+<form action = "/added/" method = "POST">
+  <input type = "text" name="contribute" value="">
+  <input type = "submit" name="add" value="Contribute">
+</form>
+{% endblock %}

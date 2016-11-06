@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title> Book Chelve </title>
+    <title>{{ page }}</title>
     <link rel = "stylesheet" href="styles.css">
   </head>
 
@@ -13,12 +13,11 @@
 	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
 	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
       </ul>
-      {% block stories %}
-      <h1> Welcome to Book Chelve, {{ username }}</h1>
-      <h2> Stories you can contribute to: </h2>
-      {{ stories }}
+      {% block story %}
+      <h1> Welcome back, {{ username }} </h1>
+      <h2> {{ title }}</h2>
+      {{ story }}
       {% endblock %}
     </center>
   </body>
-    
 </html>
