@@ -36,9 +36,10 @@ def authenticate():
         return render_template('login.html', result = regRet)
         
     if tp == "login":
-        text = auth.login()
+        text = auth.login(un,pw)
         if text == "":
-            return redirect(url_for('homepage'))
+            session["Username"] = un
+            return redirect(url_for('homePage'))
         return render_template('login.html', result = text)
     
         

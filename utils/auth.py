@@ -39,13 +39,20 @@ def register(user, password):
     return regMain(user, password)#register helper
 
 def regMain(user, password):#register helper
+    db = connect(f)
+    c = db.cursor()
     reg = regReqs(user, password)
     if reg == "":
-        salt = os.urandom(10)
+        salt = urandom(10).encode('hex')
+        print salt
         query = ("INSERT INTO users VALUES (?, ?, ?)")
         password = sha1(password + salt).hexdigest()
         c.execute(query, (user, salt, password))
+        db.commit()
+        db.close()
         return "Account created!"
+    db.commit()
+    db.close()
     return reg
         
 def regReqs(user, password):
