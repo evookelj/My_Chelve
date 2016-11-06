@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+  <head> <title>Login & Register</title> </head>
+
+  <body>
+    <form action = "/authenticate/" method="POST">
+      <center><h1> Welcome to Book Chelve! </h1>
+	<p> A virtual library consisting solely of stories that are collaborated on by the community. <br>
+	  There are two quirks to the site: <br>
+	  <ol>
+	    <li>Once you contribute to a story, you  will be able to read the whole story.</li>
+	    <li>Unfortunately, you can only contribute to a story once.</li>
+	  </ol>
+	  Otherwise, all users have a ton of freedom. <br>
+	  <ol>
+	    <li>You may start a story about anything you want!</li>
+	    <li>Contributions have no word limit.</li>
+	    <li>Users can view user profiles to see the stories that they have contributed to.</li>
+	  </ol>
+	</p>
+	<h2> Register and Login into Your Account Below! </h2>
+	<h2> {{ result }} </h2> 
+	Username: <input type="text" name = "user"> <br>
+	Password: <input type="password" name = "pass"> <br>
+	<input type="submit" name="register" value="register">
+	<input type="submit" name="login" value="login"></center>
+    </form>
+  </body>
+</html>
