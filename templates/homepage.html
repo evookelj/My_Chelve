@@ -1,14 +1,20 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title> Book Chelve </title> </head>
+  <head>
+    <title> Book Chelve </title>
+    <link rel = "stylesheet" href="styles.css">
+  </head>
 
   <body>
     <center>
-      <h1> Welcome to Book Chelve, {{ username }}</h1> 
-      <button type="button"><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </button>
-      <h2> To track your amazing writing skills, check your profile! </h2>
-      <button type="button"><a href = "http://127.0.0.1:5000/profile/"> Profile </a> </button>
+      <ul>
+	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
+	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
+	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
+	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
+      </ul>
       {% block stories %}
+      <h1> Welcome to Book Chelve, {{ username }}</h1>
       <h2> Stories you can contribute to: </h2>
       {{ stories }}
       {% endblock %}

@@ -1,10 +1,18 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title>{{ title }}</title> </head>
+  <head>
+    <title>{{ page }}</title>
+    <link rel = "stylesheet" href="styles.css">
+  </head>
 
   <body>
     <center>
-      <button type="button"><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </button>
+      <ul>
+	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
+	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
+	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
+	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
+      </ul>
       {% block story %}
       <h1> Welcome back, {{ username }} </h1>
       <h2> {{ title }}</h2>
