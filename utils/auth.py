@@ -61,8 +61,5 @@ def duplicate(user):
         return True
     return False
 
-
-register("martians","csTeachers")
-login("martians","csTeachers")
 db.commit()
 db.close()

@@ -1,4 +1,3 @@
-
 #======================#
 #        SETUP         #
 #======================#
@@ -21,43 +20,44 @@ def homePage():
     return render_template('homepage.html', username = session["Username"])
 ##needs implementation of feed
 
-@app.route("/login")
+@app.route("/login/")
 def login():
     if "Username" in session:
         return redirect(url_for('homepage'))
     return render_template('login.html')
 
-@app.route("/authenticate")
-def auth():
+@app.route("/authenticate/", methods=['POST'])
+def authenticate():
     pw = request.form["pass"]
     un = request.form["user"]
-    
-    if request.form["name"] == "register":
-        return render_template('login.html', result = auth.register(un, pw))
+    tp = request.form["action"]
+    if tp == "register":
+        regRet = auth.register(un,pw)
+        return render_template('login.html', result = regRet)
         
-    if request.form["name"] == "login":
+    if tp == "login":
         text = auth.login()
         if text == "":
             return redirect(url_for('homepage'))
         return render_template('login.html', result = text)
     
         
-@app.route("/story/<title>")
+@app.route("/story/<title>/")
 def getStory(title):
     story = stories.getStory(title)
     if story["full"]:
         return render_template("cstory.html", story = story["story"], author = story["author"], time = story["timestamp"]);
     return render_template("ncstory.html", story=story["story"], author=story["author"], time=story["timestamp"])
 
-@app.route("/create")
+@app.route("/create/")
 def createStory():
     return ;
 
-@app.route("/created") #intermediary for /create
+@app.route("/created/") #intermediary for /create
 def created():
     return ;
 
-@app.route("/profile/<user>")
+@app.route("/profile/<user>/")
 def getProfile(user):
     duple = getProfile(user);
     return render_template('profile.html',
