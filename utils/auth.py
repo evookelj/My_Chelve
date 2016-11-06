@@ -4,7 +4,7 @@ from hashlib import sha1
 from sqlite3 import connect
 from os import urandom
 
-f = "data/chelve.db"#might have to be moved to individual methods (IDK)
+f = "data/chelve.db"
 db = connect(f)
 c = db.cursor()
 
@@ -42,7 +42,7 @@ def regMain(user, password):#register helper
     db = connect(f)
     c = db.cursor()
     reg = regReqs(user, password)
-    if reg == "":
+    if reg == "": #if error message is blank then theres no problem, update database
         salt = urandom(10).encode('hex')
         print salt
         query = ("INSERT INTO users VALUES (?, ?, ?)")
@@ -53,14 +53,14 @@ def regMain(user, password):#register helper
         return "Account created!"
     db.commit()
     db.close()
-    return reg
+    return reg#return error message
         
-def regReqs(user, password):
+def regReqs(user, password):      #error message generator
     if len(password) < 8 or len(password) > 32:
-        return "Password must be 8-32 characters"#this is something we want the user to be able to see
+        return "Password must be 8-32 characters"
     if len(user) < 8 or len(user) > 32:
         return "Username must be 8-32 characters"
-    if duplicate(user):
+    if duplicate(user):          #checks if username already exists
         return "Username already exists"
     if " " in user or " " in password:
         return "Spaces not allowed in user or password"
@@ -68,7 +68,7 @@ def regReqs(user, password):
         return "Username and password must be different"
     return ""
 
-def duplicate(user):
+def duplicate(user):#checks if username already exists
     db = connect(f)
     c = db.cursor()
     query = ("SELECT * FROM users WHERE user=?")
