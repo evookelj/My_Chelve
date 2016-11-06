@@ -71,8 +71,8 @@ def getProfile(user):
     duple = stories.getProfile(user);
     return render_template('profile.html',
                             username = user,
-                            startedStories = duple[0],
-                            addStories = duple[1])
+                            startedstories = duple[0],
+                            addstories = duple[1])
 
 #======================#
 #         RUN          #
