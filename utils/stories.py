@@ -6,9 +6,8 @@ import datetime
 #Each dictionary has keys for title, author, and timestamp.
 def getFeed():
     ans = []
-    
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    #db = sqlite3.connect("data/chelve.db")
+    #c = db.cursor()
     data = c.execute("SELECT title,user,timestamp FROM entries WHERE number=0 LIMIT 10")
     
     #reverse list
@@ -23,17 +22,14 @@ def getFeed():
         
     return ans
     
-
 #returns list of contributors to a given story
 def getContributors(storyTitle):
     contributors = []
     # db = sqlite3.connect("data/chelve.db")
     # c = db.cursor()
     data = c.execute("SELECT user FROM entries WHERE title=?",(storyTitle,))
-    
     for x in data:
         contributors.append(x[0])
-    
     return contributors
 
 # will be used to print the entire story or most recent contribution
@@ -42,15 +38,11 @@ def getContributors(storyTitle):
 
 # ADD an element to dict saying whether they can see full story or not
 # so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
-
 def getStory(storyTitle,username):  
     dict = {"story":""}
-    
     # db = sqlite3.connect("data/chelve.db")
     # c = db.cursor()
     data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle,))
-    
-    
     data = data.fetchall()
     print ("------")
     print(data)
@@ -61,7 +53,6 @@ def getStory(storyTitle,username):
     #gets user contributiion to story if it exists
     data2 = c.execute("SELECT title, user FROM entries WHERE title=? AND user=?",(storyTitle,username))
     
-    
     #if user contribution exists
     if data2.fetchall():
         dict["full"] = True
@@ -70,12 +61,8 @@ def getStory(storyTitle,username):
     else:
         dict["full"] = False
         dict["story"] += data[-1][3] 
-        
     return dict
     
-
-
-
 def getStarted(user):
     # db = sqlite3.connect("data/chelve.db")
     # c = db.cursor()
@@ -102,27 +89,20 @@ def getProfile(user):
     #array of arrays of strs/titles
     return [userStarted, userContd]
             
-            
 #should work for starting a story as well as contributing to a story
 #timestamp will be a string in 
 def contributeTo(storyTitle,entry,user):
     # db = sqlite3.connect("data/chelve.db")
     # c = db.cursor()
-    
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:%S %Y-%m-%d')
-    
     query = ("SELECT * FROM entries WHERE title=? AND number=(SELECT MAX(number) FROM entries WHERE title=?)")
     data = c.execute(query,(storyTitle,storyTitle))
-    
     try:
         number=data.fetchone()[2] + 1
     except:
         number=0
-    
     query = ("INSERT INTO entries VALUES (?,?,?,?,?)")
-
     c.execute(query,(storyTitle,timestamp,number,entry,user,))
-    
     db.commit()
     db.close()
     

@@ -52,7 +52,7 @@ def getStory(title):
 
 @app.route("/create/")
 def createStory():
-    return ;
+    return render_template("createStory.html")
 
 @app.route("/created/") #intermediary for /create
 def created():
