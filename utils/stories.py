@@ -1,5 +1,6 @@
 import sqlite3
-
+import time
+import datetime
 
 #returns a list of dictionaries of the 10 most recent stories.
 #Each dictionary has keys for title, author, and timestamp.
@@ -28,7 +29,7 @@ def getContributors(storyTitle):
 	contributors = []
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor()
-	data = c.execute("SELECT title, user FROM entries WHERE title=?",(storyTitle,))
+	data = c.execute("SELECT title, user FROM entries WHERE title=?",(storyTitle))
 	
 	for x in data:
 		contributors.append(x["user"])
@@ -47,7 +48,7 @@ def getStory(storyTitle,username):
 	
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor()
-	data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle,))
+	data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle))
 	
 	dict["author"] = data[0]["user"]
 	dict["timestamp"] = data[0]["timestamp"]
@@ -73,7 +74,7 @@ def getStarted(user):
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor() 
     query = ("SELECT * FROM entries WHERE user=? and number=0")
-    sel = c.execute(query, (user,))
+    sel = c.execute(query, (user))
     retArr = []
     for record in sel:
         retArr.append(record[0])
@@ -83,7 +84,7 @@ def getContd(user):a
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor()
     query = ("SELECT * FROM entries WHERE user=? and number>0")
-    sel = c.execute(query, (user,))
+    sel = c.execute(query, (user))
     retArr = []
     for record in sel:
         retArr.append(record[0])
@@ -94,7 +95,24 @@ def getProfile(user):
     userContd = getContd(user)
     #array of arrays of strs/titles
     return [userStarted, userContd]
-		
+			
+			
+#should work for starting a story as well as contributing to a story
+#timestamp will be a string in 
+def contributeTo(storyTitle,entry,user):
+	db = sqlite3.connect("data/chelve.db")
+	c = db.cursor()
 	
+	timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:%S %Y-%m-%d')
 	
+	query = ("SELECT * FROM entries WHERE title=?")
+	data = c.execute(query,(storyTitle,))
+	if (len(data)!=0):
+		number=data[-1]["number"]
+	else:
+		number=0
+	
+	query = ("INSERT INTO entries VALUES (?,?,?,?,?)")
+	
+	c.execute(query,(storyTitle,timestamp,number,entry,user))
 	
