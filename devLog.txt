@@ -17,3 +17,17 @@ updated app.py
 changed return types for auth.py
 finished getStory(), started getFeed() in stories.py
 
+FRIDAY 11/4
+Added code for profile page and story page to app.py
+Worked on createStory.html and profile.html
+
+SATURDAY 11/5
+Major work on Stories.py
+
+SUNDAY 11/6
+Further work on stories.py
+Added login.html, ncStory.html, and cStory.html
+Added CSS and navbar
+Debugging
+Added Logout
+Completed Comments
