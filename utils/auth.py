@@ -9,7 +9,8 @@ db = connect(f)
 c = db.cursor()
 
 def login(user, password):
-    
+    db = connect(f)
+    c = db.cursor()
     query = ("SELECT * FROM users WHERE user=?")
     sel = c.execute(query,(user,));
     
@@ -22,13 +23,19 @@ def login(user, password):
             return ""#no error message because it will be rerouted to mainpage
         else:
             return "User login has failed. Invalid password"#error message
+    db.commit()
+    db.close()
     return "Username does not exist"#error message
 
 def register(user, password):
+    db = connect(f)
+    c = db.cursor()
     try: #does table already exist?
         c.execute("SELECT * FROM USERS")
     except: #if not, this is the first user!
         c.execute("CREATE TABLE users (user TEXT, salt TEXT, password TEXT)")
+    db.commit()
+    db.close()
     return regMain(user, password)#register helper
 
 def regMain(user, password):#register helper
@@ -55,11 +62,13 @@ def regReqs(user, password):
     return ""
 
 def duplicate(user):
+    db = connect(f)
+    c = db.cursor()
     query = ("SELECT * FROM users WHERE user=?")
     sel = c.execute(query, (user,))
+    retVal = False
     for record in sel:
-        return True
-    return False
-
-db.commit()
-db.close()
+        retVal = True
+    db.commit()
+    db.close()
+    return retVal
