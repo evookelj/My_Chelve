@@ -62,9 +62,13 @@ def created():
     stories.contributeTo(title, entry, user)
     return redirect( url_for('homePage'))
 
+@app.route("/profile/")
+def getMyProfile():
+    return redirect( url_for("getProfile", user=session["Username"]))
+
 @app.route("/profile/<user>/")
 def getProfile(user):
-    duple = getProfile(user);
+    duple = stories.getProfile(user);
     return render_template('profile.html',
                             username = user,
                             startedStories = duple[0],

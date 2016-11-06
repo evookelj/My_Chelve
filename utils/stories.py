@@ -64,23 +64,27 @@ def getStory(storyTitle,username):
     return dict
     
 def getStarted(user):
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     query = ("SELECT * FROM entries WHERE user=? and number=0")
     sel = c.execute(query, (user,))
     retArr = []
     for record in sel:
         retArr.append(record[0])
+    db.commit()
+    db.close()
     return retArr
 
 def getContd(user):
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     query = ("SELECT * FROM entries WHERE user=? and number>0")
     sel = c.execute(query, (user,))
     retArr = []
     for record in sel:
         retArr.append(record[0])
+    db.commit()
+    db.close()
     return retArr
 
 def getProfile(user):
