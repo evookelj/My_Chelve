@@ -76,7 +76,7 @@ def getStarted(user):
     sel = c.execute(query, (user,))
     retArr = []
     for record in sel:
-        retArr = record[0]
+        retArr.append(record[0])
     return retArr
 
 def getContd(user):a
@@ -86,7 +86,7 @@ def getContd(user):a
     sel = c.execute(query, (user,))
     retArr = []
     for record in sel:
-        retArr = record[0]
+        retArr.append(record[0])
     return retArr
 
 def getProfile(user):
