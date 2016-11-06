@@ -21,40 +21,6 @@ def getFeed():
 		ans.append(dict)
 		
 	return ans
-
-#returns list containing TWO other lists.
-#each list will contain dictionaries. Dictionaries will hold title, author, and timestamp.
-#list[0] will be the stories that were created by user
-#list[1] will be thes stories that were contributed by user
-def getProfile(username):
-	ans = []
-	
-	db = sqlite3.connect("data/chelve.db")
-	c = db.cursor()	
-	data = c.execute("SELECT * FROM entries WHERE user=?",(username,))
-	
-	#holds stories that user has started
-	started = []
-	#holds stories that user has contributed to
-	contributed = []
-	
-	
-	for x in data:
-		dict = {}
-		dict["title"] = x["title"]
-		dict["author"] = x["user"]
-		dict["timestamp"] = x["timestamp"]
-				
-		if (x["number"] == 0):
-			started.append(dict)
-		else:
-			contributed.append(dict)
-			
-	ans.apppend(started)
-	ans.append(contributed)
-	
-	return ans
-
 	
 
 #returns list of contributors to a given story
@@ -104,6 +70,8 @@ def getStory(storyTitle,username):
 
 
 def getStarted(user):
+	db = sqlite3.connect("data/chelve.db")
+	c = db.cursor() 
     query = ("SELECT * FROM entries WHERE user=? and number=0")
     sel = c.execute(query, (user,))
     retArr = []
@@ -111,7 +79,9 @@ def getStarted(user):
         retArr = record[0]
     return retArr
 
-def getContd(user):
+def getContd(user):a
+	db = sqlite3.connect("data/chelve.db")
+	c = db.cursor()
     query = ("SELECT * FROM entries WHERE user=? and number>0")
     sel = c.execute(query, (user,))
     retArr = []
