@@ -74,6 +74,12 @@ def getProfile(user):
                             startedstories = duple[0],
                             addstories = duple[1])
 
+@app.route("/logout/")
+def logOut():
+    if "Username" in session:
+        session.pop("Username")
+    return redirect (url_for('homePage'))
+
 #======================#
 #         RUN          #
 #======================#
