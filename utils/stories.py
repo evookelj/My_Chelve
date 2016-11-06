@@ -1,34 +1,73 @@
 import sqlite3
 
-<<<<<<< HEAD
-# will be used
+
+#returns a list of dictionaries of the 10 most recent stories.
+#Each dictionary has keys for title, author, and timestamp.
 def getFeed():
+	ans = []
+	
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor()
-	data = c.execute("SELECT title,timestamp,number FROM entries")
+	data = c.execute("SELECT title,user,timestamp,number FROM entries WHERE number=0")
 	
-	return 0;
+	#reverse list
+	data = data[::-1]
 	
+	for x in data[:10]:
+		dict = {}
+		dict["title"] = x["title"]
+		dict["author"] = x["user"]
+		dict["timestamp"] = x["timestamp"]
+		ans.append(dict)
 		
-def getUser():
-	return 0;
+	return ans
 
-def getProfile():
-	return 0;
-
-def getContributors(title):
-	return 0;
-
-
-def getFeed():
-    return
-		
-def getUser():
-    return
+#returns list containing TWO other lists.
+#each list will contain dictionaries. Dictionaries will hold title, author, and timestamp.
+#list[0] will be the stories that were created by user
+#list[1] will be thes stories that were contributed by user
+def getProfile(username):
+	ans = []
 	
-def getContributors(title):
-    return
+	db = sqlite3.connect("data/chelve.db")
+	c = db.cursor()	
+	data = c.execute("SELECT * FROM entries WHERE user=?",(username,))
+	
+	#holds stories that user has started
+	started = []
+	#holds stories that user has contributed to
+	contributed = []
+	
+	
+	for x in data:
+		dict = {}
+		dict["title"] = x["title"]
+		dict["author"] = x["user"]
+		dict["timestamp"] = x["timestamp"]
+				
+		if (x["number"] == 0):
+			started.append(dict)
+		else:
+			contributed.append(dict)
+			
+	ans.apppend(started)
+	ans.append(contributed)
+	
+	return ans
 
+	
+
+#returns list of contributors to a given story
+def getContributors(storyTitle):
+	contributors = []
+	db = sqlite3.connect("data/chelve.db")
+	c = db.cursor()
+	data = c.execute("SELECT title, user FROM entries WHERE title=?",(storyTitle,))
+	
+	for x in data:
+		contributors.append(x["user"])
+	
+	return contributors
 
 # will be used to print the entire story or most recent contribution
 # fullstory vs most recent contribution:
@@ -36,31 +75,33 @@ def getContributors(title):
 
 # ADD an element to dict saying whether they can see full story or not
 # so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
+
 def getStory(storyTitle,username):	
-	dict = {story:""}
+	dict = {"story":""}
 	
 	db = sqlite3.connect("data/chelve.db")
 	c = db.cursor()
-	data = c.execute("SELECT title,number,entry FROM entries")
+	data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle,))
 	
-	for x in data:
-			if x["title"] == storyTitle:
-				dict["author"] = x["user"]
-				dict["timestamp"] = x["timestamp"]
-				break
-
-	if fullStory:	
+	dict["author"] = data[0]["user"]
+	dict["timestamp"] = data[0]["timestamp"]
+	
+	#gets user contributiion to story if it exists
+	data2 = c.execute("SELECT title, user FROM entries WHERE title=? AND user=?",(storyTitle,username))
+	
+	#if user contribution exists
+	if (len(data2) > 0):
+		dict["full"] = True
 		for x in data:
-			if x["title"] == storyTitle:
-				dict["story"]+= x["entry"]
-
+			dict["story"] += x["entry"]
 	else:
-		for x in reversed(data):
-			if x["title"] == storyTitle:
-				dict["story"]+= x["entry"]
-				break
-				
+		dict["full"] = False
+		dict["story"] += data[-1]["story"] 
+		
 	return dict
+	
+
+
 
 def getStarted(user):
     query = ("SELECT * FROM entries WHERE user=? and number=0")
