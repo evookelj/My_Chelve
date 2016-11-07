@@ -75,7 +75,7 @@ def created():
 
 @app.route("/profile/")
 def getMyProfile():#goes to user who's logged in's profile
-    return getProfile(session["Username"))
+    return getProfile(session["Username"])
 
 @app.route("/profile/<user>/")
 def getProfile(user):
