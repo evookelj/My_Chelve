@@ -31,3 +31,6 @@ Added CSS and navbar
 Debugging
 Added Logout
 Completed Comments
+Made sure links between profiles work
+Final Polishing
+Implemented feed into app.py
