@@ -8,15 +8,28 @@
   <body>
     <center>
       <ul>
-	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
-	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
-	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
-	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
+	<li><a href = "/"> Home </a> </li>
+	<li><a href = "/profile/{{username}}"> Profile </a> </li>
+	<li><a href = "/create/"> Start a Story! </a> </li>
+	<li><a href = "/logout/"> Logout </a> </li>
       </ul>
       {% block stories %}
-      <h1> Welcome to Book Chelve, {{ username }}</h1>
-      <h2> Stories you can contribute to: </h2>
-      {{ stories }}
+      <h1> Welcome to Book Chelve, <a href = "/profile/{{username}}"> {{username}} </a></h1>
+      <h2> Most recent stories: </h2>
+      <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Timestamp</th>
+        </tr>
+      {% for x in feed %}
+        <tr>
+            <td><a href="/story/{{x['title']}}">{{x['title']}}</a></td>
+            <td>{{x['author']}}</td>
+            <td>{{x['timestamp']}}</td>
+        </tr>
+      {% endfor %}
+      </table>
       {% endblock %}
     </center>
   </body>

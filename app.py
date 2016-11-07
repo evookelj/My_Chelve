@@ -19,7 +19,7 @@ def homePage():
         #if the user is not logged in
         #then homepage has nothing for them so redirects to login
         return redirect(url_for('login'))
-    return render_template('homepage.html', username = session["Username"])
+    return render_template('homepage.html', username = session["Username"],feed=stories.getFeed())
 
 @app.route("/login/")
 def login():
