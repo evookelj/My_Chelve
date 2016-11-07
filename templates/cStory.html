@@ -8,13 +8,13 @@
   <body>
     <center>
       <ul>
-	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
-	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
-	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
-	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
+	<li><a href = "/"> Home </a> </li>
+	<li><a href = "/profile/{{username}}"> Profile </a> </li>
+	<li><a href = "/create/"> Start a Story! </a> </li>
+	<li><a href = "/logout/"> Logout </a> </li>
       </ul>
       {% block story %}
-      <h2> {{ title }}</h2>
+      <h2>{{ title }}</h2>
       {{ story }}
       {% endblock %}
     </center>
