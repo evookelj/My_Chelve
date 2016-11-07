@@ -51,7 +51,7 @@ def getStory(title):
     
     if story["full"]:#user has already contributed so has full viewing permissions
         return render_template("cStory.html",
-                               page = title,
+                               title = title,
                                story = story["story"],
                                contributors = stories.getContributors(title),
                                author = story["author"],
@@ -59,20 +59,27 @@ def getStory(title):
                                username=session["Username"])
     
     return render_template("ncStory.html", #otherwise, user has not contributed and can only see most recent addition
-                           page = title,
                            title = title,
                            recent = story["story"], 
                            author=story["author"],
-                           time=story["timestamp"])
+                           time=story["timestamp"],
+                           username=session["Username"])
 
 @app.route("/create/")
 def createStory(): #where user creates a new story or contributed to an existing one
-    return render_template("createStory.html", page = "Start a Story", username=session["Username"])
+    return render_template("createStory.html", username=session["Username"])
 
 @app.route("/created/", methods=['POST']) #intermediary for /create
 def created():
     title = request.form["title"]
     entry = request.form["story"]
+    user = session["Username"]
+    stories.contributeTo(title, entry, user)
+    return redirect( url_for('homePage'))
+    
+@app.route("/created/<title>", methods=['POST']) #intermediary for /create
+def created2(title):
+    entry = request.form["contribute"]
     user = session["Username"]
     stories.contributeTo(title, entry, user)
     return redirect( url_for('homePage'))

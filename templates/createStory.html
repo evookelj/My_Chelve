@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title> Book Chelve </title> </head>
+  <head> <title> Start a story! </title> </head>
 
   <body>
-    <center>
-      <h1> Embark on a new verbal adventure!</h1>   
-      <button type="button"><a href = "/"> Home </a> </button>
-{% extends "homepage.html" %}
-{% block stories %}
-      <h1> Embark on a new verbal adventure!</h1> 
-      <form action = "/created/" method = "POST">
+    {% extends "homepage.html" %}
+    {% block stories %}
+    <h1> Embark on a new verbal adventure!</h1> 
+    <form action = "/created/" method = "POST">
 	Title: <input type = "text" name = "title" value=""><br>
 	Starting text: <input type = "text" name="story" value=""><br>
 	<input type = "submit" name="create" value="create">
       </form>
       {% endblock %}
+    </body>
+    
+</html>

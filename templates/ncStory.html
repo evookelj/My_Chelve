@@ -1,10 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel = "stylesheet" href="styles.css">
+  </head>
+
+  
+<body>
+  
 {% extends "homepage.html" %}
 {% block stories %}
-<h1> You have all the power to change this story {{ username }}, what do you do? </h1>
-<h2> {{ title }} </h2>
-<h2> {{ recent }} <br> <i >contributed by </i> <a href = "http://127.0.0.1:5000/profile/{{ author }}"> {{author }} </a> <i>at</i> {{ time }} </h2>
-<form action = "/created/" method = "POST">
+
+<h1> {{ title }} </h1>
+<h6><i>started by </i> <a href = "http://127.0.0.1:5000/profile/{{ author }}"> {{author }} </a> <i>at</i> {{ time }} <h6>
+
+<h3>Latest contribution:</h3>
+{{ recent }}<br><br>
+You have all the power to change this story. What will you add, {{username}}?
+<form action = "/created/{{title}}" method = "POST">
   <input type = "text" name="contribute" value="">
   <input type = "submit" name="add" value="Contribute">
 </form>
+
 {% endblock %}
+</body>
+
+</html>

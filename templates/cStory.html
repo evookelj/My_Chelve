@@ -1,28 +1,25 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>{{ page }}</title>
+    <title>{{ title }}</title>
     <link rel = "stylesheet" href="styles.css">
   </head>
 
   <body>
     <center>
-      <ul>
-	<li><a href = "/"> Home </a> </li>
-	<li><a href = "/profile/{{username}}"> Profile </a> </li>
-	<li><a href = "/create/"> Start a Story! </a> </li>
-	<li><a href = "/logout/"> Logout </a> </li>
-      </ul>
-      {% block story %}
-      <h2>{{ title }}</h2>
-{% extends "homepage.html" %}
-{% block stories %}
+      
+    {% extends "homepage.html" %}
+    {% block stories %}
       <h2> {{ title }}</h2>
       {{ story }}
 
       <h2> Brought to you by: </h2>
       {% for user in contributors %}
-      <a href="/profile/{{contributor}}/"> {{ contributor }} </a> <br>
+        <a href="/profile/{{user}}/"> {{ user }} </a> <br>
       {% endfor %}
       
       {% endblock %}
+
+   </body>
+
+</html>
