@@ -1,22 +1,35 @@
 <!DOCTYPE HTML>
 <html>
-  <head> <title>Login & Register</title> </head>
+  <head>
+    <title> Login & Register </title>
+    <link rel = "stylesheet" type="text/css" href="style.css" />
+    <style>
+      body{
+      background-color: #66B9BF
+      }
+
+      h1{
+      color: white;
+      }
+
+      h2{
+      color: white;
+      }
+    </style>
+  </head>
 
   <body>
     <form action = "/authenticate/" method="POST">
       <center><h1> Welcome to Book Chelve! </h1>
 	<p> A virtual library consisting solely of stories that are collaborated on by the community. <br>
-	  There are two quirks to the site: <br>
-	  <ol>
-	    <li>Once you contribute to a story, you  will be able to read the whole story.</li>
-	    <li>Unfortunately, you can only contribute to a story once.</li>
-	  </ol>
-	  Otherwise, all users have a ton of freedom. <br>
-	  <ol>
-	    <li>You may start a story about anything you want!</li>
-	    <li>Contributions have no word limit.</li>
-	    <li>Users can view user profiles to see the stories that they have contributed to.</li>
-	  </ol>
+	  There are <b>two</b> quirks to the site: <br>
+	  You will only be able to read a story after you contribute to it. <br>
+	  Unfortunately, you can only contribute to a story once.<br>
+	  Otherwise, you have a ton of freedom! <br>
+	  You may start a story about anything you want!<br>
+	  Contributions have no word limit.<br>
+	  You can view user profiles to see the stories that they have contributed to.<br>
+	  
 	</p>
 	<h2> Register and Login into Your Account Below! </h2>
 	<h2> {{ result }} </h2> 
