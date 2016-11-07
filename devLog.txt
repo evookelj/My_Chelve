@@ -26,8 +26,9 @@ Major work on Stories.py
 
 SUNDAY 11/6
 Further work on stories.py
-Added login.html, ncStory.html, and cStory.html
+Added back login.html, ncStory.html, and cStory.html
 Added CSS and navbar
 Debugging
 Added Logout
 Completed Comments
+Encountered problems with adding to stories and viewing stories 
