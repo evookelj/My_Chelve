@@ -2,21 +2,78 @@
 <html>
   <head>
     <title> Book Chelve </title>
-    <link rel = "stylesheet" href="styles.css">
+    <link rel = "stylesheet" type="text/css" href="style.css"/> <!--somehow not linking-->
+    <style>
+      body{
+      background-color: #66B9BF
+      }
+
+      h1{
+      color: white;
+      }
+
+      h2 {
+      color: white;
+      }
+
+      ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #E37222;
+      width: 50%;
+      }
+
+      li {
+      float: left;
+      }
+
+      li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      }
+
+
+      li a:hover {
+      background-color: #EEAA7B;
+      }
+
+      .active {
+      background-color: #EEAA7B;
+      }
+    </style>
   </head>
 
   <body>
     <center>
       <ul>
-	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
-	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
-	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
-	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
+	<li><a href = "/"> Home </a> </li>
+	<li><a href = "/profile/{{username}}"> Profile </a> </li>
+	<li><a href = "/create/"> Start a Story! </a> </li>
+	<li><a href = "/logout/"> Logout </a> </li>
       </ul>
       {% block stories %}
-      <h1> Welcome to Book Chelve, {{ username }}</h1>
-      <h2> Stories you can contribute to: </h2>
-      {{ stories }}
+      <h1> Welcome to Book Chelve, <a href = "/profile/{{username}}"> {{username}} </a></h1>
+      <img src = "http://brussels.carpediem.cd/data/afisha/o/91/8a/918a5f0cb5.jpg" alt = "Book Shelve" >
+      <h2> Most recent stories: </h2>
+      <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Timestamp</th>
+        </tr>
+      {% for x in feed %}
+        <tr>
+            <td><a href="/story/{{x['title']}}">{{x['title']}}</a></td>
+            <td>{{x['author']}}</td>
+            <td>{{x['timestamp']}}</td>
+        </tr>
+      {% endfor %}
+      </table>
       {% endblock %}
     </center>
   </body>

@@ -6,9 +6,9 @@ import datetime
 #Each dictionary has keys for title, author, and timestamp.
 def getFeed():
     ans = []
-    #db = sqlite3.connect("data/chelve.db")
-    #c = db.cursor()
-    data = c.execute("SELECT title,user,timestamp FROM entries WHERE number=0 LIMIT 10")
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
+    data = c.execute("SELECT title,user,timestamp FROM entries WHERE number=0")
     
     #reverse list
     data = data.fetchall()[::-1]
@@ -25,8 +25,8 @@ def getFeed():
 #returns list of contributors to a given story
 def getContributors(storyTitle):
     contributors = []
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     data = c.execute("SELECT user FROM entries WHERE title=?",(storyTitle,))
     for x in data:
         contributors.append(x[0])
@@ -39,9 +39,9 @@ def getContributors(storyTitle):
 # ADD an element to dict saying whether they can see full story or not
 # so it can return { "story": <story>, "author": author, "timestamp": time, "full": boolean }
 def getStory(storyTitle,username):  
-    dict = {"story":""}
     db = sqlite3.connect("data/chelve.db")
     c = db.cursor()
+    dict = {"story":""}
     data = c.execute("SELECT * FROM entries WHERE title=?",(storyTitle,))
     data = data.fetchall()
     print ("------")
@@ -126,8 +126,7 @@ def contributeTo(storyTitle,entry,user):
     
 #import os
 #os.chdir("..")
-db = sqlite3.connect("data/chelve.db")
-c = db.cursor()
+
 
 
 

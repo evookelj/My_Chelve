@@ -1,24 +1,28 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-  <head> <title> Book Chelve </title> </head>
+<head>
+    <title>Profile<title>
+</head>
 
-  <body>
-    <center>
-      <h1> Welcome to your profile, {{ username }}</h1> 
-      <button type="button"><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </button>
-      <h2> Stories you have contributed to: </h2>
+
+<body>
+{% extends "homepage.html" %}
+
+{% block stories %}
+      <h1> Welcome to <a href = "/profile/{{username}}"> {{ username }}'s </a> profile</h1>
+      <h2> Stories {{username}} has contributed to: </h2>
       {% for title in addstories %}
       <ul>
 	 <li> <a href = "http://127.0.0.1:5000/story/{{title}}"> {{ title }} </a></li>
       </ul>
       {% endfor %}
-      <h2> Stories you have started: </h2>
+      <h2> Stories {{username}} has started: </h2>
       {% for title in startedstories %}
       <ul>
 	 <li> <a href = "http://127.0.0.1:5000/story/{{title}}"> {{title}} </a></li>
       </ul>
       {% endfor %}
-    </center>
-  </body>
-    
+      {% endblock %}
+
+</body>
 </html>

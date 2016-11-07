@@ -1,23 +1,25 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>{{ page }}</title>
+    <title>{{ title }}</title>
     <link rel = "stylesheet" href="styles.css">
   </head>
 
   <body>
     <center>
-      <ul>
-	<li><a href = "http://127.0.0.1:5000/"> Home </a> </li>
-	<li><a href = "http://127.0.0.1:5000/profile/" + {{ username }} + "/"> Profile </a> </li>
-	<li><a href = "http://127.0.0.1:5000/create/"> Start a Story! </a> </li>
-	<li><a href = "http://127.0.0.1:5000/logout/"> Logout </a> </li>
-      </ul>
-      {% block story %}
-      <h1> Welcome back, {{ username }} </h1>
+      
+    {% extends "homepage.html" %}
+    {% block stories %}
       <h2> {{ title }}</h2>
       {{ story }}
+
+      <h2> Brought to you by: </h2>
+      {% for user in contributors %}
+        <a href="/profile/{{user}}/"> {{ user }} </a> <br>
+      {% endfor %}
+      
       {% endblock %}
-    </center>
-  </body>
+
+   </body>
+
 </html>
