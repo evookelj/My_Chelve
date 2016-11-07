@@ -25,8 +25,8 @@ def getFeed():
 #returns list of contributors to a given story
 def getContributors(storyTitle):
     contributors = []
-    # db = sqlite3.connect("data/chelve.db")
-    # c = db.cursor()
+    db = sqlite3.connect("data/chelve.db")
+    c = db.cursor()
     data = c.execute("SELECT user FROM entries WHERE title=?",(storyTitle,))
     for x in data:
         contributors.append(x[0])

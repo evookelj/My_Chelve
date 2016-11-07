@@ -19,7 +19,7 @@ def homePage():
         #if the user is not logged in
         #then homepage has nothing for them so redirects to login
         return redirect(url_for('login'))
-    return render_template('homepage.html', username = session["Username"],feed=stories.getFeed())
+    return render_template('homepage.html', page = "Home",username = session["Username"],feed=stories.getFeed())
 
 @app.route("/login/")
 def login():
@@ -51,19 +51,23 @@ def getStory(title):
     
     if story["full"]:#user has already contributed so has full viewing permissions
         return render_template("cStory.html",
+                               page = title,
                                story = story["story"],
+                               contributors = stories.getContributors(title),
                                author = story["author"],
                                time = story["timestamp"],
-                               username=session["Username"]);
+                               username=session["Username"])
     
     return render_template("ncStory.html", #otherwise, user has not contributed and can only see most recent addition
-                           story=story["story"],
+                           page = title,
+                           title = title,
+                           recent = story["story"], 
                            author=story["author"],
                            time=story["timestamp"])
 
 @app.route("/create/")
 def createStory(): #where user creates a new story or contributed to an existing one
-    return render_template("createStory.html")
+    return render_template("createStory.html", page = "Start a Story", username=session["Username"])
 
 @app.route("/created/", methods=['POST']) #intermediary for /create
 def created():
@@ -81,6 +85,7 @@ def getMyProfile():#goes to user who's logged in's profile
 def getProfile(user):
     duple = stories.getProfile(user);#duple has started stories, as well as stories contributed to
     return render_template('profile.html',
+                           page = "Profile",
                             username = user,
                             startedstories = duple[0],
                             addstories = duple[1])

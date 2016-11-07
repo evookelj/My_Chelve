@@ -1,3 +1,11 @@
+body{
+    backgroung-color: #99ccff
+}
+
+h1{
+    color: white;
+}
+
 ul {
     list-style-type: none;
     margin: 0;

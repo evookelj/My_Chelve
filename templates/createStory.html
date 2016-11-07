@@ -6,12 +6,12 @@
     <center>
       <h1> Embark on a new verbal adventure!</h1>   
       <button type="button"><a href = "/"> Home </a> </button>
+{% extends "homepage.html" %}
+{% block stories %}
+      <h1> Embark on a new verbal adventure!</h1> 
       <form action = "/created/" method = "POST">
 	Title: <input type = "text" name = "title" value=""><br>
 	Starting text: <input type = "text" name="story" value=""><br>
 	<input type = "submit" name="create" value="create">
       </form>
-    </center>
-  </body>
-    
-</html>
+      {% endblock %}
